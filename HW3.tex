@@ -1,0 +1,321 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[top=1in,textheight=9in]{geometry}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{enumerate}
+\usepackage{xfrac}
+\usepackage{xcolor}
+
+
+% Everything after a % sign is commented out.
+% This is sometimes useful to write notes to yourself
+% or to add spacing in the tex file so that it is easier
+% to read.
+
+
+% Some useful `macros'
+% % % Feel free to define your own!
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\eps}{\varepsilon}
+\renewcommand{\epsilon}{\eps}
+\newcommand{\I}{\mathbb{I}}
+
+
+% Here is a pretty way to write down the problem
+
+\newtheorem{defn}{Definition}
+
+\newtheorem{innerprob}{Problem}
+\newenvironment{prob}[1]
+  {\renewcommand\theinnerprob{#1}\innerprob}
+  {\endinnerprob}
+% Here is a pretty way to wrote down the solution
+\newenvironment{solution}
+  {\renewcommand\qedsymbol{}\begin{proof}[Solution]}
+  {\end{proof}\bigskip}
+
+
+\setlength\parindent{0cm}
+\setlength\parskip{5pt plus 1pt minus 1pt}
+
+
+
+\title{Assignment \#3\\Math 584A}
+\author{
+	John Cohen
+	}
+\date{Due September 24th, 5 am (via Gradescope)}
+
+
+
+
+
+
+
+
+
+\begin{document}
+
+\maketitle
+
+For uploading to Gradescope, it will be easiest to put each solution on a different page.  The code for this is commented out in the tex file.
+
+% Don't write anything between \begin{document}
+% and \maketitle or it will show up before your name
+% and the rest of the title stuff.
+
+
+
+%State the problem
+%\begin{prob}{PROBLEM #}
+%  WRITE PROBLEM
+%\end{prob}
+
+% Note prob is custom-made above will
+
+\begin{defn}
+	Given a sequence $x_1, x_2, x_3, \dots \in \R$, we define:
+	\[
+		\limsup_{n\to\infty} x_n
+			= \lim_{n\to\infty} \left( \sup\{ x_i : i \geq n\}\right)
+		\quad\text{ and }\quad
+		\liminf_{n\to\infty} x_n
+			= \lim_{n\to\infty} \left( \inf\{ x_i : i \geq n\}\right)
+	\]
+\end{defn}
+
+
+
+
+
+\begin{prob}{1}  % `prob' starts the (custom made, above) problem
+			%  and the 
+Find the following $\limsup$ and $\liminf$ of the following sequences and justify your work.
+\begin{enumerate}[(i)]
+	\item $1,\sfrac{1}{2}, \sfrac{1}{3}, \dots$
+	\item $2,-1,2,-1,2,-1,\dots$
+	\item $x_1, x_2, x_3,\dots$ where $x_n = \sin\left(\sfrac{n\pi}{4}\right) + \sfrac{1}{n}$.
+\end{enumerate}
+\end{prob}
+%Uncomment the lines below to solve the problem
+\begin{solution}
+	For part (i) I will show that the limit of this sequence is $0$. This amounts to showing that  for any choice of $\epsilon > 0$, there exists $n\in N$ such that $1/n < \epsilon$. This must be true as the natural numbers are unbounded. Consider now the $\limsup$ and $\liminf$ of this sequence. Let $$\limsup_{n\to\infty} x_n = x_s \quad \text{ and } \quad \liminf_{n\to\infty} x_n = x_i.$$ The value of $x_s$ cannot be greater than $0$ as it was just proven that this sequence converges to zero. The value of $x_i$ cannot be less than $0$ as that would mean that zero is not an infimum, and there must exist $n\in N$ such that $1/n < 0$, which is impossible. Therefore $x_s = 0$ and $x_i = 0$.
+	
+	Now consider the sequence in part (ii). This is a sequence of alternating values of $2$ and $-1$. Clearly the largest value in the sequence is $2$ and the smallest value is $-1$. Also, since there are only two alternating values, there is no limiting behavior. Thus, $$\limsup_{n\to\infty} x_n = 2 \quad \text{ and } \quad \liminf_{n\to\infty} x_n = -1.$$
+	
+	Finally, for the sequence in part (iii), consider first just the $\sin(\sfrac{n\pi}{4})$ term. For $n\in N$, this can only take on the values of $0, \pm \sfrac{1}{\sqrt 2}, \pm 1$. Thus, for all $n\in N$, $x_n \leq 1$ and $x_n \geq -1$. Therefore, $$\limsup_{n\to\infty} x_n = 1 \quad \text{ and } \quad \liminf_{n\to\infty} x_n = -1.$$ Including the $1/n$ term changes nothing as for any $\epsilon > 0$, there exists $n\in \N$ such that $1 + \sfrac{1}{n} < 1 + \epsilon$. Similarly, for any $\epsilon > 0$, there exists $n\in \N$ such that $-1 + \sfrac{1}{n} < -1 + \epsilon$. And since $-1 + \sfrac{1}{n} > -1$, it is still the case that $\liminf = -1$. 
+\end{solution}
+\newpage
+
+
+
+\begin{prob}{2}  % `prob' starts the (custom made, above) problem
+			%  and the 
+Suppose that $x_1, x_2, \dots$ is a bounded sequence (that is, there is $M>0$ such that $|x_i| \leq M$ for all $i$).  Show that
+\[
+	\limsup_{n\to\infty} x_n
+		\quad\text{ and }\quad
+	\liminf_{n\to\infty} x_n
+\]
+are well-defined.
+\end{prob}
+%Uncomment the lines below to solve the problem
+\begin{solution}
+	Notice that since the sequence is bounded, any set containing only elements of the sequence must also be bounded. Let $S_n = \{ x_i : i \geq n\}$ be a bounded set. Then, $\sup S_n$ must exist. Let $s_n = \sup S_n$. Let $(s_n)$ be the sequence where each term is defined as $s_n = \sup\{ x_i : i \geq n\}$. I claim that this sequence is not increasing and converges to the infimum of $(s_n)$. 
+	
+	To show that this sequence is not increasing, consider any two elements $s_n$ and $s_m$ where $n < m$, and assume for contradiction that $s_n < s_m$. Thus, $\sup \{ x_i : i \geq n\} < \sup \{ x_i : i \geq m\}$, which is impossible because $\{ x_i : i \geq n\} \supset \{ x_i : i \geq m\}$.
+	
+	Since the sequence $(s_n)$ is bounded, it must also have an infimum. Let this value be $i$. Since $i$ exists and is by definition unique, $i+\epsilon$ is not an infimum. Thus, there must exist $s_n$ such that $i + \epsilon > s_n > i$. And since $(s_n)$ is not increasing, for all $m\geq n$, $$i + \epsilon > s_m > i.$$ Also note that by the definition of an imimum, there must not exist $s_p$ such that $s_p < i$. Therefore for any $\epsilon > 0$ there exists $n\in N$ such that whenever $n \geq N$, $$s_n - i < \epsilon,$$ which means $i$ is the limit of $(s_n)$.
+	
+	Similar reasoning shows that the $\liminf$ is well defined. For the same sets $S_n$ defined above, let $i_n = \inf S_n$. Since each set is bounded, the infimum must exist. In this case, I claim that this sequence is not decreasing and converges to the supremum of $(i_n)$. 
+	
+	To show that this sequence is not decreasing, consider any two elements $i_n$ and $i_m$ where $n < m$, and assume for contradiction that $i_n > i_m$. Thus, $\inf \{ x_i : i \geq n\} > \inf \{ x_i : i \geq m\}$, which is impossible because $\{ x_i : i \geq n\} \supset \{ x_i : i \geq m\}$.
+	
+	Since the sequence $(s_n)$ is bounded, it must also have an supremum. Let this value be $s$. Since $s$ exists and is by definition unique, $s-\epsilon$ is not a supremum. Thus, there must exist $i_n$ such that $s - \epsilon < i_n < i$. And since $(i_n)$ is not increasing, for all $m\geq n$, $$s - \epsilon < i_m < s.$$ Also note that by the definition of an supremum, there must not exist $i_p$ such that $i_p > s$. Therefore for any $\epsilon > 0$ there exists $n\in N$ such that whenever $n \geq N$, $$i_n - s < \epsilon,$$ which means $s$ is the limit of $(i_n)$.
+\end{solution}
+\newpage
+
+
+
+
+
+\begin{prob}{3}  % `prob' starts the (custom made, above) problem
+			%  and the
+Suppose that $x_1, x_2, \dots$ is a bounded sequence.  Show that it has a limit if and only if
+\[
+	\limsup_{n\to\infty} x_n = \liminf_{n\to\infty} x_n.
+\]
+Moreover, in this case, we have
+\[
+	\lim_{n\to\infty} x_n
+		= \limsup_{n\to\infty} x_n
+		= \liminf_{n\to\infty} x_n.
+\]
+ \end{prob}
+%Uncomment the lines below to solve the problem
+%\begin{solution}
+%This is a very elegant solution.
+%\end{solution}
+%\newpage
+
+
+
+
+
+
+\begin{prob}{4}  % `prob' starts the (custom made, above) problem
+			%  and the 
+Suppose that $x_1, x_2, \dots$ is a bounded sequence.  Show that there exist subsequences $(x_{n_k})_k$ and $(x_{m_k})_k$ such that
+\[
+	\limsup_{n\to\infty} x_n = \lim_{k\to\infty} x_{n_k}
+\]
+and
+\[
+	\liminf_{n\to\infty} x_n = \lim_{k\to\infty} x_{m_k}.
+\]
+\end{prob}
+%Uncomment the lines below to solve the problem
+%\begin{solution}
+%This is a very elegant solution.
+%\end{solution}
+%\newpage
+
+
+
+
+
+
+
+
+
+
+\begin{prob}{5} % `prob' starts the (custom made, above) problem
+			%  and the 
+Consider $C_0(\R)$, defined in Example 2.1.8.  Is $C_0(\R)$ an open subset of $C(\R)$?  What about $C(\R) \setminus C_0(\R)$?  Justify your answer.
+\end{prob}
+%Uncomment the lines below to solve the problem
+\begin{solution}
+	The set $C_0(\R)$ is not an open set. Consider any $f\in C_0(\R)$ and open ball $B_r(f) = \{g \in C_0(\R): d_{C(\R)}(f,g) < r\}$. Let $g = f + \sfrac{r}{2}$. Since $$\lim_{x\to \pm \infty}f = 0,$$ it is true that $$\lim_{x\to \pm \infty}g = r/2,$$ and $g\notin C_0(\R)$. But by our definition of $g$, 
+	\[\begin{split}
+		d_{C(\R)}(f,g) &= \sup_{x\in \R} |f-g|\\
+		&=\sup_{x\in \R} |f-(f-\sfrac{r}{2})|\\
+		&= \frac{r}{2}.
+	\end{split}\]
+	Thus, $g\in B_r(f)$, and $C_0(\R)$ is not open as a result.
+	
+	To show that $C(\R) \setminus C_0(\R)$ is open, fix any $f_0\in C(\R) \setminus C_0(\R)$. Since $f_0\notin C_0(\R)$, there must exist $\epsilon > 0$ such that $|f_0(x_N)-0| > \epsilon$ for any choice of $N$ and some $x_N>N$. Let $B_{\sfrac{\epsilon}{2}}(f_0)$ be the ball of radius $\sfrac{\epsilon}{2}$ centered at $f_0$. Let $f_1 \in B_{\sfrac{\epsilon}{2}}(f_0)$. To show that $f_1 \notin C_0(\R)$, consider for the same $x_N$ above
+	\[\begin{split}
+		|f_1(x_N) - 0| & = |f_1(x_N) - f_0(x_N) + f_0(x_N)|\\
+		& = |f_0(x_N) - (f_1(x_N) + f_0(x_N))|
+	\end{split}\]
+	By the triangle inequality,
+	\[\begin{split}
+		|f_1(x_N) - 0| & \geq |f_0(x_N)| - |f_1(x_N) + f_0(x_N)|\\
+		& \geq |f_0(x_N)| - \sup_{x\in \R}|f_1(x) + f_0(x)|\\
+		&= |f_0(x_N)| - d_{C(\R)}(f_1, f_0).
+	\end{split}\]
+	By our choice of $f_0$, $f_1$, and $x_N$, this becomes
+	\[\begin{split}
+		|f_1(x_N) - 0| & \geq \epsilon - \frac{\epsilon}{2}\\
+		& = \frac{\epsilon}{2}.
+	\end{split}\]
+	Hence, $f_1 \notin C_0(\R)$ and must be in $C(\R) \setminus C_0(\R)$. Thus, $C(\R) \setminus C_0(\R)$ is open.
+\end{solution}
+\newpage
+
+
+
+
+\begin{prob}{6} % `prob' starts the (custom made, above) problem
+			%  and the 
+Show that $\R\setminus \Q$ is dense in $\R$.  You may use that $\sqrt 2 \in \R\setminus \Q$, and you may find it helpful to show that $\sqrt 2 -q \in \R\setminus \Q$ for every $q\in\Q$.
+\end{prob}
+%Uncomment the lines below to solve the problem
+\begin{solution}
+	Let $\I = \R\setminus \Q$. I will first show that $\I$ is closed under addition, subtraction, and division with an element in $\Q$. Let $i\in I$ and assume for contradiction that $(i + q)\in \Q$ for some $q\in Q$. Then $i + \sfrac{a}{b} = \sfrac{c}{d}$ where $a,c\in \Z$ and $b,d \in N$. Rearranging yields $$ i = \frac{cb - ad}{bd}.$$ Since $(cb - ad) \in \Z$ and $bd\in \N$, $i\in \Q$, producing a contradiction. 
+	
+	For division, let $i\in I$ and assume for contradiction that $\sfrac{i}{q}\in \Q$ for some $q\in Q$. Then, $$\frac{i}{\sfrac{a}{b}} = \frac{c}{d}$$ where $a,c\in \Z$ and $b,d \in N$. Rearranging yields $$ i = \frac{ca}{bd}.$$ Since $ca \in \Z$ and $bd\in \N$, $i\in \Q$, producing a contradiction.
+	
+	To show that $\I$ is dense in $\R$, fix any $x_0\in \R$. Fix $r>0$ and let $B_r(x_0)$ be the open ball with radius $r$ centered at $x_0$. The two cases that need to be considered are when $x_0 \in \Q$ and $x_0 \in \I$. Let $x_0 \in \I$. Since $x_0 \in B_r(x_0)$, then $x_0 \in B_r(x_0) \cap \I$.
+	
+	Next consider the case when $x_0 \in \Q$. I claim that for any choice of $r>0$, there exists $n\in \N$ such that $\sfrac{\sqrt{2}}{n} < r$. Assume for contradiction that this is not true. Then, $\sfrac{\sqrt{2}}{r} > n$ for all $n\in \N$, which is impossible because $\N$ is unbounded. Thus, there exists some $i = x_0 \sfrac{\sqrt{2}}{n}$ where $i\in \I$, such that for some $n \in N$
+	\[\begin{split}
+		|x_0-i| & = |x_0-(x_0 + \sfrac{\sqrt{2}}{n})|\\
+		& = |\sfrac{\sqrt{2}}{n}|\\
+		& < r.
+	\end{split}\]
+	Therefore, $i\in B_r(x_0)$, and $i \in B_r(x_0) \cap \I$. Therefore, $\I$ is dense in $\R$. 
+	
+\end{solution}
+%\newpage
+
+
+
+
+\begin{prob}{7} % `prob' starts the (custom made, above) problem
+			%  and the 
+Fix any open set $U \subset X$ such that $U \neq \emptyset$ and $U \neq X$.  Can $U$ be dense in $X$?  Can the complement of $U$ be dense in $X$?  The complement is defined as
+\[
+	X\setminus U
+		:= U^c
+		:= \{ x \in X : x \notin U\}.
+\]
+\end{prob}
+%Uncomment the lines below to solve the problem
+\begin{solution}
+	To show this is possible, consider the case when $U = \text{Int} X$. By the definition of the interior, $U = \{x\in X: \text{ there exists } r > 0 \text { such that } B_r(x) \subset X\}$. Therefore, $U$ is dense in $X$.
+	
+	However, $U^c$ cannot be dense in $X$. Since $U$ is open, for every $u\in U$, there exists an open ball $B_r(u)$ such that for some $r>0$, $B_r(u) \subset U$. By last homework, the open ball is open. Fix any $x\in B_r(u)$. There must then exist some $r_x > 0$ such that $B_{r_x}(x) \subset B_r(u)$. And since $B_r(u) \subset U$, it must be true that $x\in U$. Therefore, $B_{r_x}(x) \cap U^c = \emptyset$. 
+\end{solution}
+\newpage
+
+
+
+
+
+
+\begin{prob}{8} % `prob' starts the (custom made, above) problem
+			%  and the 
+	Define $d:\N\times \N \to [0,\infty)$ by $d(n,m) = |\sfrac1n - \sfrac1m|$.
+	\begin{enumerate}[(i)]
+		
+		\item Show that $d$ is a metric.
+		
+		\item Let $\bar \N = \N \cup \{\infty\}$.  Define $\bar d: \bar \N \times \bar \N \to [0,\infty)$ be defined by
+			\[
+				\bar d(n,m)
+					= \begin{cases}
+						d(n,m)
+							&\qquad \text{ if } n,m \in \N,\\
+						\sfrac1n
+							&\qquad \text{ if } n \in \N, m=\infty,\\
+						\sfrac1m
+							&\qquad \text{ if } n = \infty, m\in\N,\\
+						0
+							&\qquad \text{ if } n=m=\infty.
+					\end{cases}
+			\]
+			Show that $\bar d$ is a metric and that $(\bar \N, \bar d)$ is complete.
+	\end{enumerate}
+\end{prob}
+%Uncomment the lines below to solve the problem
+%\begin{solution}
+%This is a very elegant solution.
+%\end{solution}
+%\newpage
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
